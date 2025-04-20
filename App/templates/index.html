@@ -1,13 +1,45 @@
 {% extends "layout.html" %}
 {% block title %}Let's Get Cooking{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block page %}Let's Get Cooking{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+<div class="row" style="height:100%; background-color: aquamarine;">
+  <!--This is for the list of recipes -->
+  <div class="col m8 list-container collection" style="max-height: 80vh; background-color: pink;">
+    <h1>Hi</h1>
+
+  </div>
+
+  <!-- This is for the list column of ingredients added by the user -->
+  <div class="col m4">
+    <!-- For the list of ingredients -->
+    <div class="list-container collection" style="max-height: 50vh; background-color: blue;">
+      <h2> List </h2>
+      
+    </div>
+    <div style="margin-top: 35px;">
+        <form name="ingredient-Form" id="new-ingredient" class="card" method="POST" action="">
+          <div class="card-content">
+              <div class="input-field">
+              <input type="text" id="ingredient_name" name="new_ingredient" placeholder="Add New Ingredient" class="materialize-textarea">
+              <div class="row">
+                  <div class="col s12 m12 l12">
+                  <input class="btn blue right" id="addIngredient" type="submit" value="Add Ingredient" />
+                  </div>
+              </div>
+              </div>
+          </div>  
+        </form>
+      </div>
+  </div>
+
+    <!-- For the card that takes the input of ingredients-->
+      
+
+
+  
+
+</div>
 {% endblock %}
