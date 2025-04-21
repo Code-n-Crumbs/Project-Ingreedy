@@ -16,7 +16,3 @@ class RecipeIngredient(db.Model):
             "recipe_id": self.recipe_id,
             "ingredient_id": self.ingredient_id
         }
-
-    def delete(self):
-            db.session.delete(self)
-            db.session.commit()
