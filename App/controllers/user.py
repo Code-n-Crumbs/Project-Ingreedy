@@ -47,8 +47,8 @@ def add_recipe(id, name, directions, time, ingredients):
                 db.session.add(exist)
                 db.session.flush()
 
-        correlation_ri = RecipeIngredient(recipe_id=new_recipe.recipe_id, ingredient_id=exist.ingredient_id)
-        db.session.add(correlation_ri)
+            correlation_ri = RecipeIngredient(recipe_id=new_recipe.recipe_id, ingredient_id=exist.ingredient_id)
+            db.session.add(correlation_ri)
 
         new_user_recipe = UserRecipe(id, new_recipe.recipe_id)
         db.session.add(new_user_recipe)
