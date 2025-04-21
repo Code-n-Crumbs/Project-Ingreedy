@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from App.controllers import create_user, initialize
-from App.controllers.ingredient import add_ingredient, get_all_ingredients_json
+from App.controllers.ingredient import add_ingredient, get_all_ingredients_json, reduce_ingredient, delete_ingredient
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
@@ -19,8 +19,21 @@ def health_check():
 
 @index_views.route('/items', methods=['GET'])
 def example_items():
-    item = add_ingredient('potato', 1, 'lbs')
-    item = add_ingredient('milk', 8, 'oz')
-    item = add_ingredient('butter', 4, 'oz')
-    item = add_ingredient('salt', 4, 'oz')
-    return jsonify(get_all_ingredients_json())
+    add_ingredient('potato', 1, 'lbs')
+    add_ingredient('milk', 8, 'oz')
+    add_ingredient('butter', 4, 'oz')
+    add_ingredient('salt', 4, 'oz')
+    return jsonify(get_all_ingredients_json()), 200
+
+@index_views.route('/use1', methods=['GET'])
+def example_use():
+    reduce_ingredient('potato', 1)
+    reduce_ingredient('milk', 1)
+    reduce_ingredient('butter', 1)
+    reduce_ingredient('salt', 1)
+    return jsonify(get_all_ingredients_json()), 200
+
+@index_views.route('/throw-milk', methods=['GET'])
+def remove_milk():
+    delete_ingredient('milk')
+    return jsonify(get_all_ingredients_json()), 200
