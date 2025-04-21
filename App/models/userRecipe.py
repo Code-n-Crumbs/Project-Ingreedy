@@ -4,6 +4,7 @@ class UserRecipe(db.Model):
     user_recipe_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.recipe_id'), nullable = False)
+    # there is a peudo-column from user here called 'user'
 
     def __init__(self, user_id, recipe_id):
         self.user_id = user_id
