@@ -6,8 +6,9 @@ class Recipe(db.Model):
     directions = db.Column(db.String(1000))
     total_time_taken = db.Column(db.Integer)
     #user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False) #not using it like this as the todo list allocation is predefined
-    ingredients = db.relationship('Ingredient', backref='recipe', cascade="all, delete-orphan")
-    user = db.relationship('UserRecipe', backref='recipe', lazy=True)
+    #ingredients = db.relationship('Ingredient', backref='recipe', cascade="all, delete-orphan")
+    recipe_ingredient = db.relationship('RecipeIngredient', backref='recipe', lazy=True, cascade="all, delete-orphan")
+    user = db.relationship('UserRecipe', backref='recipe', lazy=True, cascade="all, delete-orphan")
 
     def __init__(self, name, directions, time):
         self.recipe_name = name
