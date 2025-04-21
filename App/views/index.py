@@ -29,14 +29,14 @@ def example_items():
 
 @index_views.route('/bob-inv', methods=['GET'])
 def see_inventory():
-    user = User.query.filter_by(id=1).first()
+    #user = User.query.filter_by(id=1).first()
     ingredient1 = add_ingredient('rice', 'lbs')
     ingredient2 = add_ingredient('chicken', 'lbs')
     ingredient3 = add_ingredient('broccoli', 'lbs')
-    add_to_inventory(user, ingredient1, 10)
-    add_to_inventory(user, ingredient2, 10)
-    add_to_inventory(user, ingredient3, 10)
-    return jsonify(get_all_inventory_items_json(user)), 200
+    add_to_inventory(ingredient1, 10)
+    add_to_inventory(ingredient2, 10)
+    add_to_inventory(ingredient3, 10)
+    return jsonify(get_all_inventory_items_json()), 200
 
 @index_views.route('/use1', methods=['GET'])
 def example_use():

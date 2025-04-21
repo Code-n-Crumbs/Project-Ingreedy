@@ -1,8 +1,9 @@
-from App.models import Inventory
+from App.models import Inventory, User
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
-def add_to_inventory(user, ingredient, amount):
+def add_to_inventory(ingredient, amount):
+    user = User.query.filter_by(id=1).first()
     try:
         new_inventory_item = Inventory(user.id, ingredient.id, amount)
         db.session.add(new_inventory_item)
@@ -14,7 +15,7 @@ def add_to_inventory(user, ingredient, amount):
         return None
     return None
 
-def remove_from_inventory(user, ingredient):
+def remove_from_inventory(user, ingredient): # why is user here???
     try:
         inventory_item = Inventory.query.filter_by(ingredient_id=ingredient.id).first()
         db.session.delete(inventory_item)
@@ -25,7 +26,9 @@ def remove_from_inventory(user, ingredient):
         return None
     return None
     
-def get_all_inventory_items_json(user):
+def get_all_inventory_items_json():
+    user = User.query.filter_by(id=1).first()
+    print(user.username) # gets bob
     inventory = Inventory.query.filter_by(user_id=user.id).all()
     if not inventory:
         return ['fuck']

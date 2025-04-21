@@ -2,7 +2,6 @@ from App.database import db
 
 class Ingredient(db.Model):
     ingredient_id = db.Column(db.Integer, primary_key=True)
-    ingredient_source = db.Column(db.Integer, db.ForeignKey('inventory.inventory_id'))
     ingredient_name = db.Column(db.String(225), nullable=False)
     ingredient_recipe = db.relationship('RecipeIngredient', backref='ingredient', lazy=True) #RI has an ingredient pseudo-column
     ingredient_unit = db.Column(db.String(64), nullable=False)
