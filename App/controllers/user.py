@@ -1,4 +1,4 @@
-from App.models import User
+from App.models import *
 from App.database import db
 
 def create_user(username, password):
@@ -30,4 +30,28 @@ def update_user(id, username):
         db.session.add(user)
         return db.session.commit()
     return None
-    
+
+def add_recipe(id, name, directions, time, ingredients):
+        new_recipe = Recipe(name=name, directions=directions, time=time)
+        db.session.add(new_recipe)
+        db.session.flush() #temporarily store a struture for it so that there is an id for ingredients to map to 
+
+        #ingredient_list = ingredients.split(',')
+
+        #ingredients will be a list of ingredient names
+        for ingredient in ingredients: 
+            exist = Ingredient.query.filter_by(ingredient_name=ingredient).first()
+
+            if not exist:
+                exist = Ingredient(ingredient)
+                db.session.add(exist)
+                db.session.flush()
+
+        correlation_ri = RecipeIngredient(recipe_id=new_recipe.recipe_id, ingredient_id=exist.ingredient_id)
+        db.session.add(correlation_ri)
+
+        new_user_recipe = UserRecipe(id, new_recipe.recipe_id)
+        db.session.add(new_user_recipe)
+        db.session.commit()
+
+        return new_recipe.get_json()
