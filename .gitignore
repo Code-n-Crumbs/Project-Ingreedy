@@ -154,3 +154,10 @@ cython_debug/
 #.idea/
 
 node_modules/
+
+.dockerignore
+.vscode/tasks.json
+.vscode/launch.json
+Dockerfile
+docker-compose.debug.yml
+docker-compose.yml
