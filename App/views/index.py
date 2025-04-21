@@ -37,6 +37,7 @@ def see_inventory():
     add_to_inventory(ingredient2, 10)
     add_to_inventory(ingredient3, 10)
     return jsonify(get_all_inventory_items_json()), 200
+    #return jsonify(get_all_ingredients_json())
 
 @index_views.route('/use1', methods=['GET'])
 def example_use():

@@ -5,9 +5,11 @@ from sqlalchemy.exc import IntegrityError
 def add_to_inventory(ingredient, amount):
     user = User.query.filter_by(id=1).first()
     try:
-        new_inventory_item = Inventory(user.id, ingredient.id, amount)
+        new_inventory_item = Inventory(user.id, ingredient.ingredient_id, amount)
         db.session.add(new_inventory_item)
         db.session.commit()
+        #print('WATCH OUT!!!!')
+        #print(new_inventory_item)
         return new_inventory_item
     except Exception as e:
         print(e)
@@ -17,7 +19,7 @@ def add_to_inventory(ingredient, amount):
 
 def remove_from_inventory(user, ingredient): # why is user here???
     try:
-        inventory_item = Inventory.query.filter_by(ingredient_id=ingredient.id).first()
+        inventory_item = Inventory.query.filter_by(ingredient_id=ingredient.ingredient_id).first()
         db.session.delete(inventory_item)
         db.session.commit()
     except Exception as e:
@@ -28,9 +30,10 @@ def remove_from_inventory(user, ingredient): # why is user here???
     
 def get_all_inventory_items_json():
     user = User.query.filter_by(id=1).first()
-    print(user.username) # gets bob
-    inventory = Inventory.query.filter_by(user_id=user.id).all()
-    if not inventory:
-        return ['fuck']
-    inventory_list = [item.get_json() for item in inventory]
+    #print(user.username) # gets bob
+    inventory_list = Inventory.query.filter_by(user_id=user.id).all() #issue is here
+    #print(inventory_list)
+    if not inventory_list:
+        return []
+    inventory_list = [item.get_json() for item in inventory_list]
     return inventory_list
