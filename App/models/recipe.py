@@ -25,7 +25,3 @@ class Recipe(db.Model):
             "directions": self.directions,
             "total_time_taken": self.total_time_taken
         }
-        
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
