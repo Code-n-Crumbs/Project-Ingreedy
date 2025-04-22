@@ -15,3 +15,4 @@ class Ingredient(db.Model):
             "ingredient_id": self.ingredient_id,
             "ingredient_name": self.ingredient_name,
             "ingredient_unit": self.ingredient_unit
+        }
