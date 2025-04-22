@@ -6,6 +6,7 @@ class RecipeIngredient(db.Model):
     ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.ingredient_id'), nullable = False)
 
     #Methods
+
     def __init__(self, recipe_id, ingredient_id):
         self.recipe_id = recipe_id
         self.ingredient_id = ingredient_id
