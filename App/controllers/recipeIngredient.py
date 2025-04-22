@@ -42,3 +42,26 @@ def get_ingredient_names(recipe_id):
 
     #print(names)
     return names
+
+def get_missing_ingredients_count(user_id, recipe_id):
+    i = Inventory.query.filter_by(user_id=user_id).all()
+    r = get_ingredient_names(recipe_id)
+
+    jon = [ri.get_json() for ri in i]
+    user_inventory = []
+    for json_recipe in jon:
+        id = json_recipe['ingredient_id']
+        the = Ingredient.query.filter_by(ingredient_id=id).first()
+        the = the.get_json()
+        name = the['ingredient_name']
+        user_inventory.append(name)
+
+    missing = []
+    missing_count = 0
+    for ingredient in r:
+        if ingredient not in user_inventory:
+            missing_count += 1
+            missing.append(ingredient)
+
+    #print(missing)
+    return missing
