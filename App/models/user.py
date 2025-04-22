@@ -6,7 +6,7 @@ class User(db.Model):
     username =  db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
     inventory_ingredients = db.relationship('Inventory', backref='user',lazy=True, cascade="all, delete-orphan")
-    recipes = db.relationship('UserRecipe', backref='user', lazy=True, cascade="all, delete-orphan")
+    recipes = db.relationship('UserRecipe', backref='user', lazy=True, cascade="all, delete-orphan") # there is a 'user' psudo-column on UserRecipes table. One to many relationship.
 
     def __init__(self, username, password):
         self.username = username
@@ -15,7 +15,8 @@ class User(db.Model):
     def get_json(self):
         return{
             'id': self.id,
-            'username': self.username
+            'username': self.username,
+            'inventory_id': inventory_ingredients.id
         }
 
     def set_password(self, password):

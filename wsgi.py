@@ -20,7 +20,7 @@ def init():
     print('database intialized')
 
 '''
-User Commands
+User Commands 
 '''
 
 # Commands can be organized using groups

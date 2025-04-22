@@ -5,6 +5,7 @@ class Inventory(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.ingredient_id'), nullable = False)
     amount = db.Column(db.Integer)
+    #has a pseudo-column called 'user'
 
     def __init__(self, user_id, ingredient_id, amount):
         self.user_id = user_id
