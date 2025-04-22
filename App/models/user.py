@@ -16,7 +16,6 @@ class User(db.Model):
         return{
             'id': self.id,
             'username': self.username,
-            'inventory_id': inventory_ingredients.id
         }
 
     def set_password(self, password):
