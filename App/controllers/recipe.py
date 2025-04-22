@@ -16,7 +16,7 @@ def get_recipe(id):
 def get_all_recipes():
     return Recipe.query.all()
 
-def get_all_users_json():
+def get_all_recipes_json():
     recipes = Recipe.query.all()
     if not recipes:
         return []

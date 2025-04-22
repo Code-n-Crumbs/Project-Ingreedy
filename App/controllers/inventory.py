@@ -17,6 +17,17 @@ def add_to_inventory(ingredient, amount):
         return None
     return None
 
+def edit_inventory_amount(user, ingredient, amount):
+    try:
+        item = Inventory.query.filter_by(user_id=user.id).first()
+        item.amount = amount
+        db.session.commit()
+        return item
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return None
+
 def remove_from_inventory(user, ingredient): # why is user here???
     try:
         inventory_item = Inventory.query.filter_by(ingredient_id=ingredient.ingredient_id).first()

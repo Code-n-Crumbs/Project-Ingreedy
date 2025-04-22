@@ -41,6 +41,10 @@ def see_inventory():
 
 @index_views.route('/use1', methods=['GET'])
 def example_use():
+    user=User.query.filter_by(id=1).first()
+    inv = Inventory.query.filter_by(user_id=1).first()
+    #ingredient = Ingredient.query.filter_by()
+    edit_inventory_amount(user, )
     reduce_ingredient('potato', 1)
     reduce_ingredient('milk', 1)
     reduce_ingredient('butter', 1)
