@@ -1,13 +1,67 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% block title %}Ingreedy{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block page %}Ingreedy{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
+
+<div class="row" style="margin: 0; height: calc(100vh - 64px); overflow: hidden; padding: 20px;background: #A8D5BA;">
+  <!-- Recipes Section -->
+  
+  <div class="col s9" style="padding: 20px; height: 100%; overflow-y: auto;">
     {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
+    <h5>Welcome, {{current_user.username}}!</h5>
     {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+    <p>These are the creative recipes you added!</p>
+
+    <!-- {% for recipe in recipes %} -->
+    <div class="card grey lighten-3" style="position: relative;">
+      <div class="card-content">
+        <span class="card-title">Recipe Name</span>
+      </div>
+      <div class="card-action" style="position: absolute; right: 10px; top: 10px;">
+        <a class="tooltipped" data-position="top" data-tooltip="Number of Missing Ingredients">
+          <!-- [{{ recipe.missing_count }}] -->
+        </a>
+      </div>
+    </div>
+    <!-- {% endfor %} -->
+  </div>
+
+  <!-- Right: Ingredients Panel -->
+  <div class="col s3" style="position: sticky; top: 64px; height: 80vh; background: #f8f8f8; padding: 20px; border-left: 1px solid #ccc; display: flex; flex-direction: column;">
+    <div style="flex-grow: 1; overflow-y: auto;">
+      <h6>My Ingredients</h6>
+      {% if is_authenticated %}
+      <ul class="collection">
+        {% for ingredient in ingredients %}
+        <li class="collection-item" style="display: flex; justify-content: space-between; align-items: center;">
+            
+          <span>{{ingredient.ingredient_name}}</span>
+          <a href="/delete-ingredient/{{ ingredient.id }}" class="secondary-content tooltipped" data-tooltip="Delete Ingredient">
+            <i class="material-icons red-text text-darken-2">close</i>
+          </a>
+          
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+            <h4>Login in to Start adding ingredients!</h4>
+            {% endif %}
+    </div>
+
+    <!-- Add Ingredient -->
+    <form action="/add-ingredient" method="POST" style="margin-top: 10px; display: flex; align-items: center;">
+      <div class="input-field" style="flex: 1; margin: 0;">
+        <input type="text" name="ingredient_name" id="ingredient_name" placeholder="Add Ingredient" required>
+        <label for="ingredient_name">Add Ingredient</label>
+      </div>
+      <button type="submit" class="btn-floating btn-small waves-effect waves-light green" style="margin-left: 10px;">
+        <i class="material-icons">add</i>
+      </button>
+    </form>
+  </div>
+</div>
+
 {% endblock %}
