@@ -1,3 +1,80 @@
 html {
     padding: 0;
 }
+
+.recipe-list-column{
+    flex: 1; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.selected-recipe-column{
+    flex: 2; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    height:540px;  /* here is where it keeps the fixed length*/
+}
+
+.add-ingredient{
+    flex:1; 
+    display: flex; 
+    flex-direction: column; 
+    position: fixed; 
+    bottom:20px; 
+    width:370px;
+    right:20px; 
+    padding: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.my-inventory{
+    flex: 1; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative;
+}
+
+.my-inventory-list{
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding:10px;
+}
+
+.delete-ingredient-button{
+    color: red; 
+    border: 1px solid red; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    text-decoration: none;
+}
+
+.recipe-details-column{
+    flex: 3; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 45px; 
+    display: flex; 
+    flex-direction: column; 
+    height:540px;  /* here is where it keeps the fixed length*/
+}
+
+.recipe-ingredients{
+    flex: 1; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative;
+}
