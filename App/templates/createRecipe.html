@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block title %}Ingreedy{% endblock %}
+{% block page %}New Recipe{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<main style="padding: 20px; font-family: sans-serif;">
+    <!-- <div style="margin-bottom: 20px;">
+        <h1 style="font-size: 1.4rem; margin: 0;">Let's create a new recipe!</h1>
+    </div> -->
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col s12 m6">
+        <h5 style="font-size: 1.4rem; margin: 0;">Let's create a new recipe!</h5>
+      </div>
+    </div>
+    <!-- <h5>Let's create a new recipe!</h5> -->
+
+    <div style="display: flex; gap: 20px;">
+
+      <!-- Display the recipe selected by the user, the defualt is the first recipe  -->
+      <div class="recipe-details-column">
+        <form action="/submit-recipe" method="POST">
+        <!-- Recipe Name -->
+        <div style="margin-bottom: 30px; display:flex; flex-direction:row;">
+          <div style="font-weight: bold; width:160px; padding-top: 8px;">Recipe Name:</div>
+          <input type="text" name="new_recipe_name" id="new_recipe_name" required>
+        </div>
+  
+        <!-- Add Ingredient
+        <div style="margin-bottom: 30px; display:flex; flex-direction:row;">
+          <div style="font-weight: bold; width:160px; padding-top: 8px;">Add Ingredient:</div>
+           <div class="input-field" style="width:730px;">
+            <input type="text" name="ingredient_name" id="ingredient_name">
+            <span class="helper-text">Input Ingredient and click 'Add' to add to list</span>
+          </div>
+          <div class="input-field" style="width:730px">
+            <form action="/add-temp-ingredient" method="POST" style="display: flex; gap: 5px;">
+              <input type="text" name="ingredient_name" placeholder="Add Ingredient" required style="flex-grow: 1; padding: 5px;">
+              <button type="submit" style="padding: 5px;">+</button>
+            </form>
+            <button class="btn" type="submit" action="/add-temp-ingredient" style="margin-top: 10px;">Add</button>
+          </div>
+        </div> -->
+          
+
+        <!-- Directions -->
+        <div style="margin-bottom: 30px; display:flex; flex-direction:row;">
+          <div style="font-weight: bold; width:160px; padding-top: 8px;">Directions:</div>
+          <textarea name="directions" id="directions" class="materialize-textarea" required></textarea>
+        </div>
+  
+        
+        <!-- Total Time Taken -->
+        <div style="margin-bottom: 30px; display:flex; flex-direction:row;">
+          <div style="font-weight: bold; width:160px; padding-top: 8px;">Total Time Taken:</div>
+          <input type="text" name="time_taken" id="time_taken" required>
+        </div>
+        <!-- Add Recipe Button -->
+        <div class="col s12 m6 right-align">
+          <button class="btn" type="submit" formaction="/submit-recipe">Add Recipe!</button>
+        </div>
+        </form>
+      </div>
+
+      <!-- Getting recipe ingredients and have a space for entering new ingredients  -->
+      <div class="recipe-ingredients">
+        <div style="flex: 1; overflow-y: auto;">
+          <div style="text-align: center;">
+            <h2 style="font-size: 1.8rem;">Recipe Ingredients</h2>
+          </div>
+          <ul style="list-style-type: none; padding: 0;  max-height: 340px; overflow-y: auto;">
+            {% for ingredient in ingredients %}
+              <li style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                {{ ingredient }}
+                <a href="/delete-temp-ingredient/{{ ingredient }}" class="delete-ingredient-button">[Remove]</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="add-ingredient">
+          <form action="/add-temp-ingredient" method="POST" style="display: flex; gap: 5px;">
+              <input type="text" name="ingredient_name" placeholder="Add Ingredient" required style="flex-grow: 1; padding: 5px;">
+              <button type="submit" style="padding: 5px;">+</button>
+          </form>
+      </div>
+      </div>
+      
+    </div>
+
+</main>
+
+
+{% endblock %}
