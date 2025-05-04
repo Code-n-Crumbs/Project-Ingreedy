@@ -11,7 +11,11 @@ def get_recipe_by_name(name):
     return Recipe.query.filter_by(recipe_name=name).all()
 
 def get_recipe(id):
-    return Recipe.query.get(id)
+    recipe = Recipe.query.get(id)
+    if recipe:
+        return recipe
+    else:
+        return None
 
 def get_all_recipes():
     return Recipe.query.all()
