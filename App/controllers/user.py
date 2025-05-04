@@ -31,6 +31,30 @@ def update_user(id, username):
         return db.session.commit()
     return None
 
+## added back these two functions
+#ingredient would be created then passed through this function
+def user_add_inventory(id, ingredient_id):
+    ingredient = Ingredient.query.get(ingredient_id)
+    if ingredient:
+        try:
+            new_inventory = Inventory(id, ingredient_id)
+            db.session.add(new_inventory)
+            db.session.commit()
+            return new_inventory
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return None
+    return None
+    
+def user_delete_inventory(id, ingredient_id):
+    item =  Inventory.query.filter_by(user_id=id, ingredient_id=ingredient_id).first()
+    if item.user_id == id:                         #here
+        db.session.delete(item)
+        db.session.commit()
+        return True
+    return None
+
 def add_recipe(id, name, directions, time, ingredients):
         new_recipe = Recipe(name=name, directions=directions, time=time)
         db.session.add(new_recipe)
@@ -40,12 +64,13 @@ def add_recipe(id, name, directions, time, ingredients):
 
         #ingredients will be a list of ingredient names
         for ingredient in ingredients: 
-            exist = Ingredient.query.filter_by(ingredient_name=ingredient).first()
+            exist = Ingredient.query.filter(Ingredient.ingredient_name.ilike(ingredient)).first()
 
             if not exist:
-                exist = Ingredient(ingredient)
-                db.session.add(exist)
-                db.session.flush()
+                ingredient = Ingredient(ingredient)
+                db.session.add(ingredient)
+                db.session.commit()
+                exist = ingredient
 
             correlation_ri = RecipeIngredient(recipe_id=new_recipe.recipe_id, ingredient_id=exist.ingredient_id)
             db.session.add(correlation_ri)
