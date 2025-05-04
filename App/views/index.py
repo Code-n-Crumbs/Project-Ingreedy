@@ -5,9 +5,9 @@ from App.controllers import *
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
-@index_views.route('/', methods=['GET'])
-def index_page():
-    return render_template('index.html')
+# @index_views.route('/', methods=['GET'])
+# def index_page():
+#     return render_template('index.html')
 
 @index_views.route('/init', methods=['GET'])
 def init():
@@ -21,7 +21,7 @@ def health_check():
 
 ## New View Pages
 
-@index_views.route('/user', methods=['GET'])
+@index_views.route('/', methods=['GET'])
 @index_views.route('/user/recipe/<int:recipe_id>', methods=['GET'])
 @jwt_required()
 def user_page(recipe_id=None):
