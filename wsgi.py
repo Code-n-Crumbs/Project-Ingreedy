@@ -19,6 +19,14 @@ def init():
     initialize()
     print('database intialized')
 
+ ##### my test commands #####
+@app.cli.command("show-recipes", help="Shows all recipes in the database")
+def init():
+    recipes = get_all_recipes()
+    recipe_list = [recipe.get_json() for recipe in recipes]
+    all_recipes = get_all_recipes_json()
+    print(all_recipes)
+
 '''
 User Commands 
 '''
