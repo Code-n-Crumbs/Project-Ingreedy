@@ -107,9 +107,9 @@ new_ingredients = []
 def user_add_temp_ingredient():
     data = request.form
     #new_ingredient = add_temp_ingredient(data['ingredient_name'])
-    print(data['ingredient_name'])
+    #print(data['ingredient_name'])
     new_ingredients.append(data['ingredient_name'])
-    print(new_ingredients)
+    #print(new_ingredients)
     return redirect(request.referrer)
 
 @index_views.route('/delete-temp-ingredient/<string:ingredient>', methods=['GET'])
