@@ -17,9 +17,14 @@
       <nav class="purple">
           <div class="nav-wrapper">
               <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
+              
               {% if is_authenticated %}
               <ul id="nav-mobile" class="right">
                 <li><a href="/logout">Logout</a></li>
+              </ul>
+              <ul id="nav-mobile" class="left">
+                <li><a href="/user">Home</a></li>
+                <li><a href="/createRecipe">Create Recipe</a></li>
               </ul>
               {% else %}
               <form class="right navbar-form" method="POST" action="/login" style="display: flex; flex-wrap: nowrap; align-items: center; margin-right: 10px;">
