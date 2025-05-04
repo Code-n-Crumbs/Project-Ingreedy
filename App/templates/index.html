@@ -1,4 +1,5 @@
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
+
 {% block title %}Ingreedy{% endblock %}
 {% block page %}Ingreedy{% endblock %}
 
@@ -7,62 +8,73 @@
 
 {% block content %}
 
-<div class="row" style="margin: 0; height: calc(100vh - 64px); overflow: hidden; padding: 20px;background: #A8D5BA;">
-  <!-- Recipes Section -->
-  
-  <div class="col s9" style="padding: 20px; height: 100%; overflow-y: auto;">
-    {% if is_authenticated %}
-    <h5>Welcome, {{current_user.username}}!</h5>
-    {% endif %}
-    <p>These are the creative recipes you added!</p>
-
-    <!-- {% for recipe in recipes %} -->
-    <div class="card grey lighten-3" style="position: relative;">
-      <div class="card-content">
-        <span class="card-title">Recipe Name</span>
-      </div>
-      <div class="card-action" style="position: absolute; right: 10px; top: 10px;">
-        <a class="tooltipped" data-position="top" data-tooltip="Number of Missing Ingredients">
-          <!-- [{{ recipe.missing_count }}] -->
-        </a>
-      </div>
+<main style="padding: 20px; font-family: sans-serif;">
+    <div style="margin-bottom: 20px;">
+        <h1 style="font-size: 1.8rem; margin: 0;">Welcome, {{ current_user.username }}!</h1>
     </div>
-    <!-- {% endfor %} -->
-  </div>
 
-  <!-- Right: Ingredients Panel -->
-  <div class="col s3" style="position: sticky; top: 64px; height: 80vh; background: #f8f8f8; padding: 20px; border-left: 1px solid #ccc; display: flex; flex-direction: column;">
-    <div style="flex-grow: 1; overflow-y: auto;">
-      <h6>My Ingredients</h6>
-      {% if is_authenticated %}
-      <ul class="collection">
-        {% for ingredient in ingredients %}
-        <li class="collection-item" style="display: flex; justify-content: space-between; align-items: center;">
-            
-          <span>{{ingredient.ingredient_name}}</span>
-          <a href="/delete-ingredient/{{ ingredient.id }}" class="secondary-content tooltipped" data-tooltip="Delete Ingredient">
-            <i class="material-icons red-text text-darken-2">close</i>
-          </a>
-          
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-            <h4>Login in to Start adding ingredients!</h4>
+    <div style="display: flex; gap: 20px;">
+
+        <!-- Display the list of recipes the user added  -->
+        <div class="recipe-list-column">
+            <div style="text-align: center;">
+                <h2 style="font-size: 1.8rem;">My Recipes</h2>
+            </div>
+            {% for recipe in recipes %}
+                <div style="background: #f0f0f0; padding: 10px; margin-bottom: 10px; border-radius: 6px;">
+                    <a href="/user/recipe/{{ recipe.recipe_id }}">{{ recipe.recipe_name }} [{{ recipe.count }}]</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Display the recipe selected by the user, the defualt is the first recipe  -->
+        <div class="selected-recipe-column">
+            {% if selected_recipe %}
+                <div style="text-align: center;">
+                    <h2 style="font-size: 1.8rem;">{{ selected_recipe.recipe_name }}</h2>
+                </div>
+                <p><strong>Time Taken:</strong> {{ selected_recipe.total_time_taken }}</p>
+
+                <h5 style="margin-top: 15px;">Ingredients   ({{missing_ing}} missing)</h5>
+                <ul>
+                    {% for ingredient in ri %}
+                        <li>
+                            {{ ingredient.ingredient_name }} {% if ingredient.missing %}<span style="color: red;">(missing)</span>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <h5 style="margin-top: 15px;">Directions</h5>
+                <p>{{ selected_recipe.directions }}</p>
+            {% else %}
+                <p>Select a recipe to view its details.</p>
             {% endif %}
-    </div>
+        </div>
 
-    <!-- Add Ingredient -->
-    <form action="/add-ingredient" method="POST" style="margin-top: 10px; display: flex; align-items: center;">
-      <div class="input-field" style="flex: 1; margin: 0;">
-        <input type="text" name="ingredient_name" id="ingredient_name" placeholder="Add Ingredient" required>
-        <label for="ingredient_name">Add Ingredient</label>
-      </div>
-      <button type="submit" class="btn-floating btn-small waves-effect waves-light green" style="margin-left: 10px;">
-        <i class="material-icons">add</i>
-      </button>
-    </form>
-  </div>
-</div>
+        <!-- Getting user inventory and have a space for entering new ingredients  -->
+        <div class="my-inventory">
+            <div style="flex: 1; overflow-y: auto;">
+                <div style="text-align: center;">
+                    <h2 style="font-size: 1.8rem;">My Ingredients</h2>
+                </div>
+                <ul style="list-style-type: none; padding: 0;  max-height: 340px; overflow-y: auto;">
+                    {% for ingredient in ingredients %}
+                        <li class="my-inventory-list">
+                            {{ ingredient.ingredient_name }}
+                            <a href="/ingredient/delete/{{ ingredient.ingredient_id }}" class="delete-ingredient-button">Remove</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="add-ingredient">
+                <form action="/ingredient/add" method="POST" style="display: flex; gap: 5px;">
+                    <input type="text" name="ingredient_name" placeholder="Add Ingredient" required style="flex-grow: 1; padding: 5px;">
+                    <button type="submit" style="padding: 5px;">+</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
 
 {% endblock %}
