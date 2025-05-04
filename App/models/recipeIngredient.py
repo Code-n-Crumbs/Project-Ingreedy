@@ -4,7 +4,7 @@ class RecipeIngredient(db.Model):
     ri_id = db.Column(db.Integer, primary_key=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.recipe_id'), nullable = False)
     ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.ingredient_id'), nullable = False)
-
+    missing = db.Column(db.Boolean, default=False)
     #Methods
 
     def __init__(self, recipe_id, ingredient_id):
@@ -15,5 +15,6 @@ class RecipeIngredient(db.Model):
         return{
             "recipe_ingredient_id": self.ri_id,
             "recipe_id": self.recipe_id,
-            "ingredient_id": self.ingredient_id
+            "ingredient_id": self.ingredient_id,
+            "missing": self.missing
         }
