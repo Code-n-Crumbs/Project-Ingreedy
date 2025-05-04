@@ -1,50 +1,46 @@
-from App.models import Inventory, User
+from App.models import Inventory, User, Ingredient
 from App.database import db
-from sqlalchemy.exc import IntegrityError
 
-def add_to_inventory(ingredient, amount):
-    user = User.query.filter_by(id=1).first()
-    try:
-        new_inventory_item = Inventory(user.id, ingredient.ingredient_id, amount)
-        db.session.add(new_inventory_item)
-        db.session.commit()
-        #print('WATCH OUT!!!!')
-        #print(new_inventory_item)
-        return new_inventory_item
-    except Exception as e:
-        print(e)
-        db.session.rollback()
-        return None
-    return None
+#add this
+def get_user_inventory(user_id):
+    return Inventory.query.filter_by(user_id=user_id).all()
 
-def edit_inventory_amount(user, ingredient, amount):
-    try:
-        item = Inventory.query.filter_by(user_id=user.id).first()
-        item.amount = amount
-        db.session.commit()
-        return item
-    except Exception as e:
-        print(e)
-        db.session.rollback()
+def get_user_inventory_item(user_id, ingredient_id):
+    it = Inventory.query.filter_by(user_id=user_id, ingredient_id=ingredient_id).first()
+    if it:
+        return it
+    else:
         return None
 
-def remove_from_inventory(user, ingredient): # why is user here???
-    try:
-        inventory_item = Inventory.query.filter_by(ingredient_id=ingredient.ingredient_id).first()
-        db.session.delete(inventory_item)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        bdb.session.rollback()
-        return None
+##added these two functions here
+def add_inventory(id, ingredient_id):
+    ingredient = Ingredient.query.get(ingredient_id)
+    if ingredient:
+        try:
+            new_inventory = Inventory(id, ingredient_id)
+            db.session.add(new_inventory)
+            db.session.commit()
+            return new_inventory
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return None
     return None
     
-def get_all_inventory_items_json():
-    user = User.query.filter_by(id=1).first()
-    #print(user.username) # gets bob
-    inventory_list = Inventory.query.filter_by(user_id=user.id).all() #issue is here
-    #print(inventory_list)
-    if not inventory_list:
-        return []
-    inventory_list = [item.get_json() for item in inventory_list]
+def delete_inventory(id, ingredient_id):
+    item = get_user_inventory_item(id, ingredient_id)
+    print(item.get_json())
+    if item.user_id == id:                         #here
+        db.session.delete(item)
+        db.session.commit()
+        return True
+    return None
+
+
+# chenges here
+def get_all_inventory_items_json(id):
+    user_inventory = Inventory.query.filter_by(user_id=id).all()
+    if not user_inventory:
+        return None
+    inventory_list = [item.get_json() for item in user_inventory]
     return inventory_list
