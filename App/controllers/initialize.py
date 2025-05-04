@@ -1,11 +1,15 @@
-from .user import create_user
+from .user import *
+from .ingredient import *
+from .inventory import *
+from .recipe import *
+from .recipeIngredient import *
+from .userRecipe import *
 from App.database import db
-
 
 def initialize():
     db.drop_all()
     db.create_all()
-    create_user('bob', 'bobpass')
+    #create_user('bob', 'bobpass')
     user_bob = create_user('bob', 'bobpass') #here
     ingredient1 = add_ingredient('Flour')
     ingredient2 = add_ingredient('Cheese')
