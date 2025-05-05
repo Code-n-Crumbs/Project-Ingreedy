@@ -4,8 +4,8 @@
 </a>
 
 # Updated Links for Project Ingreedy
-YouTube Demonstration: https://youtu.be/LqmPduINChc
-Deployed: https://project-ingreedy.onrender.com/
+- YouTube Demonstration: https://youtu.be/LqmPduINChc
+- Deployed (from this branch): https://project-ingreedy.onrender.com/
 
 
 ![Tests](https://github.com/Code-n-Crumbs/flaskmvc/tree/Controllers-using-v1-models/actions/workflows/dev.yml/badge.svg)
