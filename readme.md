@@ -3,6 +3,9 @@
   <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
 
+# Updated Demonstration of Project Ingreedy
+https://youtu.be/LqmPduINChc
+
 ![Tests](https://github.com/Code-n-Crumbs/flaskmvc/tree/Controllers-using-v1-models/actions/workflows/dev.yml/badge.svg)
 
 # Flask MVC Template
