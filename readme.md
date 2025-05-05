@@ -3,8 +3,10 @@
   <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
 
-# Updated Demonstration of Project Ingreedy
-https://youtu.be/LqmPduINChc
+# Updated Links for Project Ingreedy
+YouTube Demonstration: https://youtu.be/LqmPduINChc
+Deployed: https://project-ingreedy.onrender.com/
+
 
 ![Tests](https://github.com/Code-n-Crumbs/flaskmvc/tree/Controllers-using-v1-models/actions/workflows/dev.yml/badge.svg)
 
